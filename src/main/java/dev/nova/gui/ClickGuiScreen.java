@@ -22,3 +22,4 @@ public class ClickGuiScreen extends Screen {
         return true;
     }
 }
+ 
