@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class NovaClient implements ClientModInitializer {
@@ -29,7 +29,6 @@ public class NovaClient implements ClientModInitializer {
                 "category.novaclient.main"
         ));
 
-        // ---- Register modules here. One line per module. ----
         MODULES.register(new Freecam(GLFW.GLFW_KEY_F6));
         MODULES.register(new EntityESP(GLFW.GLFW_KEY_G));
 
