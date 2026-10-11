@@ -8,21 +8,21 @@ import dev.nova.module.modules.Freecam;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.Identifier;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class NovaClient implements ClientModInitializer {
     public static final String MOD_ID = "novaclient";
     private static final ModuleManager MODULES = new ModuleManager();
-    private static KeyMapping guiKey;
+    private static KeyBinding guiKey;
 
     public static ModuleManager modules() { return MODULES; }
 
     @Override
     public void onInitializeClient() {
-        guiKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+        guiKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.novaclient.gui",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_RIGHT_SHIFT,
@@ -34,8 +34,8 @@ public class NovaClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             MODULES.tick(client);
-            while (guiKey.consumeClick()) {
-                Minecraft.getInstance().setScreen(new ClickGuiScreen());
+            while (guiKey.wasPressed()) {
+                MinecraftClient.getInstance().setScreen(new ClickGuiScreen());
             }
         });
     }
